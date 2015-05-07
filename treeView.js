@@ -386,7 +386,7 @@ function clearAll(){
 
 function quickStartRace(){
   clearAll();
-  var population = root.children[0];
+  var population = root.children[3];
   var white, black, latino;
   if (population.children){
     white = population.children[2];
@@ -406,7 +406,7 @@ function quickStartRace(){
   group1_data.push(latino);
   addElementsToGroup(1);
 
-  var employment = root.children[3];
+  var employment = root.children[4];
   if (employment.children){
     white = employment.children[2];
     black = employment.children[3];
