@@ -1,0 +1,59 @@
+
+.node {
+  cursor: pointer;
+}
+
+.node circle {
+  fill: #fff;
+  stroke: orange;
+  stroke-width: 1.5px;
+}
+
+.node text {
+  font: 10px sans-serif;
+}
+
+.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1.5px;
+}
+
+.dropRect.show{
+  display:block;
+}
+
+.ghostCircle, .activeDrag .ghostCircle{
+   display: none;
+}
+
+.dropRect{
+   display: none;
+}
+
+.viewTitle {
+	font: 20px sans-serif;
+ }
+
+.group_empty {
+	font: 20px sans-serif;
+    color: blue;
+    cursor: pointer;
+ }
+
+.data {
+  cursor: pointer;
+    font: 15px sans-serif;
+}
+
+
+
+.nvtooltip {
+    gravity = 's';
+/*
+    position: absolute;
+    margin-left: 980px;
+    margin-top: 200px;
+*/
+}
+

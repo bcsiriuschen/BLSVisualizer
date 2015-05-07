@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="nv.d3.css" rel="stylesheet" type="text/css" />
+<link href="treeView.css" type="text/css" rel="stylesheet" />
+<link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<script src="jquery-1.11.2.min.js"></script>
+<script src="./bootstrap/js/bootstrap.min.js"></script>
+<script src="d3.min.js"></script>
+<script src="nv.d3.js"></script>
+<script src="chartView.js"></script>
+<script src="treeView.js"></script>
+<style>
+/*#chart_div {
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+}*/
+</style>
+</head>
+<body>
+
+<div class="container">
+<br />
+    <div class="row">
+        <div class="col-lg-12  btn-row">
+        <button class="btn btn-primary btn-lg" type="button" data-toggle="collapse" data-target="#about" aria-expanded="false" aria-controls="about">
+        <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+        </button>
+        <!--<a class="btn btn-default btn-lg" href="#" role="button" onclick="clearAll()">Quick Options</a>-->
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="collapse" id="about">
+            <div class="well">
+                TreeViewer is a visualization tool used to view time series data imported from the Bureau of Labor Statistics. The tree view organizes the data in a hierarchical order, making it easy to navigate to the desired dataset. The user can drag and drop the desired data into the three chart slots, labeled "Selected Categories", causing the corresponding plot on the right to automatically update with the newly added data. The user may add multiple time series data to each plot and can remove them individually by clicking on them in the plotting box or all of them by clicking "Clear". 
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table >
+    <tr>
+        <td rowspan="3" style="width: 980px; height:100%">
+            <div id="tree_div" ></div>
+        </td>
+        <td>
+            <div id="chart_div1"><svg></svg></div>
+        </td>
+    </tr>
+    <tr>
+        <td >
+            <div id="chart_div2"><svg></svg></div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div id="chart_div3"><svg></svg></div>
+        </td>
+    </tr>
+</table>
+</body>
+
+</html>
+
