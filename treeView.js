@@ -26,12 +26,14 @@ var margin = {top: 30, right: 60, bottom: 30, left: 120},
     tree_height = 820
 ;
 
-    
 var i = 0,
     duration = 750;
 
 var tree = d3.layout.tree()
     .size([tree_height, tree_width]);
+
+
+
 
 var diagonal = d3.svg.diagonal()
     .projection(function(d) { return [d.y, d.x]; });
@@ -165,11 +167,35 @@ drop_group1.append('text')
     group1_data.forEach(function(d){ d.plot = false});
     group1_data = [];
     drop_group1.selectAll('text.data').remove();
+    addElementsToGroup(1);
     update(root);
     draw_chart()
 })
-.text('Clear')
-;
+.text('Clear');
+
+drop_group1.append('text')
+    .attr('class', 'empty_display')
+    .attr("y", "100px")
+    .attr("x", "30px")
+    .attr("font-size", "large")
+    .style("font-weight", "bold")
+    .text("Drag and drop data to plot");
+
+drop_group2.append('text')
+    .attr('class', 'empty_display')
+    .attr("y", "100px")
+    .attr("x", "30px")
+    .attr("font-size", "large")
+    .style("font-weight", "bold")
+    .text("Drag and drop data to plot");
+
+drop_group3.append('text')
+    .attr('class', 'empty_display')
+    .attr("y", "100px")
+    .attr("x", "30px")
+    .attr("font-size", "large")
+    .style("font-weight", "bold")
+    .text("Drag and drop data to plot");
 
 
 drop_group2.append('text')
@@ -187,6 +213,7 @@ drop_group2.append('text')
     group2_data.forEach(function(d){ d.plot = false});
     group2_data = [];
     drop_group2.selectAll('text.data').remove();
+    addElementsToGroup(2);
     update(root);
     draw_chart()
 })
@@ -208,6 +235,7 @@ drop_group3.append('text')
     group3_data.forEach(function(d){ d.plot = false});
     group3_data = [];
     drop_group3.selectAll('text.data').remove();
+    addElementsToGroup(3);
     update(root);
     draw_chart()
 })
@@ -382,6 +410,9 @@ function clearAll(){
   group3_data = [];
   drop_group3.selectAll('text.data').remove();
   draw_chart();
+  addElementsToGroup(1);
+  addElementsToGroup(2);
+  addElementsToGroup(3);
 }
 
 function quickStartRace(){
@@ -514,6 +545,18 @@ function addElementsToGroup(cGroup){
             })
             .text(function(d){return d.orgName;})
             .call(wrap, 250);
+        if (group1_data.length == 0){
+            drop_group1.append('text')
+                .attr('class', 'empty_display')
+                .attr("y", "100px")
+                .attr("x", "30px")
+                .attr("font-size", "large")
+                .style("font-weight", "bold")
+                .text("Drag and drop data to plot");
+        }else{
+            drop_group1.selectAll('text.empty_display').remove();
+        }
+        
     }else if (cGroup == 2){
         drop_group2.selectAll("text.data")
             .data(group2_data)
@@ -531,6 +574,18 @@ function addElementsToGroup(cGroup){
             })
             .text(function(d){return d.orgName;})
             .call(wrap, 250);
+        if (group2_data.length == 0){
+            drop_group2.append('text')
+                .attr('class', 'empty_display')
+                .attr("y", "100px")
+                .attr("x", "30px")
+                .attr("font-size", "large")
+                .style("font-weight", "bold")
+                .text("Drag and drop data to plot");
+        }else{
+            drop_group2.selectAll('text.empty_display').remove();
+        }
+        
     }else if (cGroup == 3){
         drop_group3.selectAll("text.data")
             .data(group3_data)
@@ -548,6 +603,18 @@ function addElementsToGroup(cGroup){
             })
             .text(function(d){return d.orgName;})
             .call(wrap, 250);
+        if (group3_data.length == 0){
+            drop_group3.append('text')
+                .attr('class', 'empty_display')
+                .attr("y", "100px")
+                .attr("x", "30px")
+                .attr("font-size", "large")
+                .style("font-weight", "bold")
+                .text("Drag and drop data to plot");
+        }else{
+            drop_group3.selectAll('text.empty_display').remove();
+        }
+        
     }
     draw_chart();
 }
@@ -565,7 +632,6 @@ function update(source) {
   // Compute the new tree layout.
     var nodes = tree.nodes(root).reverse(),
         links = tree.links(nodes);
-
     // Normalize for fixed-depth.
     nodes.forEach(function(d) { 
         d.y = (d.depth - maxDepth + 1) * 250 - 80;
