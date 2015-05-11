@@ -78,85 +78,111 @@ var chart_area3 = svg.append("g")
     
 var dragItem = null;
 var dragGroup = -1;
-var strokeWidth = 5;
+var strokeWidth = 2;
 
 tree_group.append('rect')
-.attr('class', 'bgRect')
-.attr('width', tree_width)
-.attr('height', (tree_height+50))
-.attr('x', '-100')
-.attr('y', '0')
-.attr("opacity", 0.2) // change this to zero to hide the target area
-.style("stroke", "black")
-.style("stroke-width", strokeWidth)
-.style("fill", "grey");
+    .attr('class', 'bgRect')
+    .attr('width', tree_width)
+    .attr('height', (tree_height+50))
+    .attr('x', '-100')
+    .attr('y', '0')
+    .attr("opacity", 0.2) // change this to zero to hide the target area
+    .style("stroke", "black")
+    .style("stroke-width", strokeWidth)
+    .style("fill", "grey")
+    ;
 
 tree_group.append('text')
-.attr('class', 'viewTitle')
-.attr("x", '-90px')
-.attr("y", '-5px')
-.style("font-weight", "bold")
-.text("Tree View");
-
+    .attr('class', 'viewTitle')
+    .attr("x", '-90px')
+    .attr("y", '-5px')
+    .style("font-weight", "bold")
+    .text("Tree View")
+    ;
+    
+tree_group.append("circle").attr("r", 10).attr("cx", 330).attr("cy", 30).style("fill", "green").style('stroke', 'green');
+tree_group.append("circle").attr("r", 10).attr("cx", 360).attr("cy", 30).style("fill", "#fff").style('stroke', 'green');
+tree_group.append("circle").attr("r", 10).attr("cx", 330).attr("cy", 55).style("fill", "orange").style('stroke', 'orange');
+tree_group.append("circle").attr("r", 10).attr("cx", 360).attr("cy", 55).style("fill", "#fff").style('stroke', 'orange');
+tree_group.append('text').attr("x", '375px').attr("y", '33px').style("font-size", "13px").text(": Rate (0~100%)");
+tree_group.append('text').attr("x", '375px').attr("y", '58px').style("font-size", "13px").text(": Count (>100)");
+    /*
+tree_group.append("circle")
+    .attr("r", 10)
+    .style("fill", function(d) { 
+        if (d.max <= 100) {
+            return d._children ? "green" : "#fff"; 
+        }
+        return d._children ? "red" : "#fff"; 
+    })
+    .style('stroke', function(d) {
+        var color = "orange";
+        if (d.max <= 100) color = "green"
+        return color; 
+    });
+*/
 
 //Create area to drop nodes
 drop_group1.append("rect")
-.attr('class', 'bgRect')
-.attr('width', drop_width)
-.attr('height', drop_height)
-.attr("opacity", 0.2) // change this to zero to hide the target area
-.style("fill", "grey")
-.style("stroke", "black")
-.style("stroke-width", strokeWidth)
-.on("mouseover", function() {
-    if (dragItem)
-	    dragGroup = 1;
-})
-.on("mouseout", function(d) {
-    dragGroup = -1;
-});
+    .attr('class', 'bgRect')
+    .attr('width', drop_width)
+    .attr('height', drop_height)
+    .attr("opacity", 0.2) // change this to zero to hide the target area
+    .style("fill", "grey")
+    .style("stroke", "black")
+    .style("stroke-width", strokeWidth)
+    .on("mouseover", function() {
+        if (dragItem)
+            dragGroup = 1;
+    })
+    .on("mouseout", function(d) {
+        dragGroup = -1;
+    })
+    ;
 
 //Create area to drop nodes
 drop_group2.append("rect")
-.attr('class', 'bgRect')
-.attr('width', drop_width)
-.attr('height', drop_height)
-.attr("opacity", 0.2) // change this to zero to hide the target area
-.style("fill", "grey")
-.style("stroke", "black")
-.style("stroke-width", strokeWidth)
-.on("mouseover", function() {
-    if (dragItem)
-	    dragGroup = 2;
-})
-.on("mouseout", function(d) {
-    dragGroup = -1;
-});
+    .attr('class', 'bgRect')
+    .attr('width', drop_width)
+    .attr('height', drop_height)
+    .attr("opacity", 0.2) // change this to zero to hide the target area
+    .style("fill", "grey")
+    .style("stroke", "black")
+    .style("stroke-width", strokeWidth)
+    .on("mouseover", function() {
+        if (dragItem)
+            dragGroup = 2;
+    })
+    .on("mouseout", function(d) {
+        dragGroup = -1;
+    })
+    ;
 
 //Create area to drop nodes
 drop_group3.append("rect")
-.attr('class', 'bgRect')
-.attr('width', drop_width)
-.attr('height', drop_height)
-.attr("opacity", 0.2) // change this to zero to hide the target area
-.style("fill", "grey")
-.style("stroke", "black")
-.style("stroke-width", strokeWidth)
-.on("mouseover", function() {
-    if (dragItem)
-	    dragGroup = 3;
-})
-.on("mouseout", function(d) {
-    dragGroup = -1;
-});
+    .attr('class', 'bgRect')
+    .attr('width', drop_width)
+    .attr('height', drop_height)
+    .attr("opacity", 0.2) // change this to zero to hide the target area
+    .style("fill", "grey")
+    .style("stroke", "black")
+    .style("stroke-width", strokeWidth)
+    .on("mouseover", function() {
+        if (dragItem)
+            dragGroup = 3;
+    })
+    .on("mouseout", function(d) {
+        dragGroup = -1;
+    })
+    ;
 
 
 drop_group1.append('text')
-.attr('class', 'viewTitle')
-.attr("y", "-5px")
-.style("font-weight", "bold")
-.text("Plot 1")
-;
+    .attr('class', 'viewTitle')
+    .attr("y", "-5px")
+    .style("font-weight", "bold")
+    .text("Plot 1")
+    ;
 
 drop_group1.append('text')
 .attr('class', 'group_empty')
@@ -179,7 +205,15 @@ drop_group1.append('text')
     .attr("x", "30px")
     .attr("font-size", "large")
     .style("font-weight", "bold")
-    .text("Drag and drop data to plot");
+    .text("Drag and drop data to plot")
+    .on("mouseover", function() {
+        if (dragItem)
+            dragGroup = 1;
+    })
+    .on("mouseout", function(d) {
+        dragGroup = -1;
+    })
+    ;
 
 drop_group2.append('text')
     .attr('class', 'empty_display')
@@ -187,7 +221,15 @@ drop_group2.append('text')
     .attr("x", "30px")
     .attr("font-size", "large")
     .style("font-weight", "bold")
-    .text("Drag and drop data to plot");
+    .text("Drag and drop data to plot")
+    .on("mouseover", function() {
+        if (dragItem)
+            dragGroup = 2;
+    })
+    .on("mouseout", function(d) {
+        dragGroup = -1;
+    })
+    ;
 
 drop_group3.append('text')
     .attr('class', 'empty_display')
@@ -195,7 +237,15 @@ drop_group3.append('text')
     .attr("x", "30px")
     .attr("font-size", "large")
     .style("font-weight", "bold")
-    .text("Drag and drop data to plot");
+    .text("Drag and drop data to plot")
+    .on("mouseover", function() {
+        if (dragItem)
+            dragGroup = 3;
+    })
+    .on("mouseout", function(d) {
+        dragGroup = -1;
+    })
+    ;
 
 
 drop_group2.append('text')
@@ -687,7 +737,7 @@ function update(source) {
       .text(function(d) { return d.name; })
       .style("fill-opacity", 1e-6)
 //      .call(wrap, 250)
-;
+    ;
 	
   nodeEnter.on("mouseover", function(d){
         	d3.select(this).select("text.n"+d.id).style("font-size", "13px").style("font-weight", "bold");
