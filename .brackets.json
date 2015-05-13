@@ -1,5 +1,6 @@
 {
     "jscodehints.detectedExclusions": [
-        "/Users/jonggihong/Dropbox/CMSC734_Project/BLSVisualizer/treeView2.js"
+        "/Users/jonggihong/Dropbox/CMSC734_Project/BLSVisualizer/treeView2.js",
+        "/Users/jonggihong/Documents/GitFolder/BLSVisualizer/treeView2.js"
     ]
 }

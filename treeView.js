@@ -79,6 +79,7 @@ var chart_area3 = svg.append("g")
 var dragItem = null;
 var dragGroup = -1;
 var strokeWidth = 2;
+var textWidth = 30;
 
 tree_group.append('rect')
     .attr('class', 'bgRect')
@@ -684,7 +685,7 @@ function update(source) {
         links = tree.links(nodes);
     // Normalize for fixed-depth.
     nodes.forEach(function(d) { 
-        d.y = (d.depth - maxDepth + 1) * 250 - 80;
+        d.y = (d.depth - maxDepth + 1) * 300 - 80;
         d.x = d.x + 30;
     });
 
@@ -734,16 +735,38 @@ function update(source) {
       .attr("dy", ".35em")
       //.attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
       .attr("text-anchor", "start")
-      .text(function(d) { return d.name; })
+      .text(function(d) { 
+            var words = d.name.split(/\s+/).reverse(),
+                word,
+                shortString = '',
+                line = [];
+            while((word = words.pop()) && shortString.length < textWidth){
+                line.push(word);
+                shortString = line.join(" ");
+            }
+            
+            d.shortName = shortString.length < textWidth? d.name : shortString.concat('...'); 
+            return d.shortName;
+        })
       .style("fill-opacity", 1e-6)
-//      .call(wrap, 250)
+        .style("font-size", "15px")
+      //.call(wrap, 200)
     ;
 	
   nodeEnter.on("mouseover", function(d){
-        	d3.select(this).select("text.n"+d.id).style("font-size", "13px").style("font-weight", "bold");
+        	d3.select(this).select("text.n"+d.id)
+                .text(function(d) { return d.name; })
+                .style("font-size", "15px")
+                .style("font-weight", "bold")
+                //.call(wrap, 300)
+            ;
         })
         .on("mouseout", function(d){
-        	d3.select(this).select("text.n"+d.id).style("font-size", "10px").style("font-weight", ""); 
+        	d3.select(this).select("text.n"+d.id)
+                .text(function(d) { return d.shortName; })
+                .style("font-size", "15px")
+                .style("font-weight", "")
+            ;
         });
 
   // Transition nodes to their new position.
@@ -880,6 +903,7 @@ function wrap(text, width) {
         while (word = words.pop()) {
             line.push(word);
             tspan.text(line.join(" "));
+                
             if (tspan.node().getComputedTextLength() > width) {
                 line.pop();
                 tspan.text(line.join(" "));
@@ -889,7 +913,9 @@ function wrap(text, width) {
                             .attr("y", y)
                             .attr("dy", ++lineNumber * lineHeight + dy + "em")
                             .text(word);
+                            
             }
+            
         }
     });
 }
